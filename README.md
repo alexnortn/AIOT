@@ -2,6 +2,7 @@ AIOT
 ====
 
 Architecture + The Internet of Things // MIT
+'Ambient Lamp'
 
 ==
 
@@ -24,6 +25,8 @@ Todo
 		Along with receiving responsed to these questions, come increasingly sophistocated interactions. How will the lamp awknowledge that it is switching data types, or responding to input.
 
 		You can solve this, just think about the ways that people interact! : ]
+
+	- Change locations on the fly with the REST interface
 
 
 ==

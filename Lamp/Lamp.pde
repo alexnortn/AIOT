@@ -19,7 +19,15 @@
 
 import processing.serial.*;
 
-String weatherURL = "http://weather.yahooapis.com/forecastrss?w=1118370&u=f&d=7",
+JSONObject woeidReturn;
+
+String weatherURL = "http://weather.yahooapis.com/forecastrss?w=",
+	   woeid,
+	   forecastElements,
+	   locationURL = "http://search.yahoo.com/sugg/gossip/gossip-gl-location/?appid=weather&output=sd1&p2=pt&command=",
+	   fullWeatherURL,
+	   woeidURL,
+	   locationW,
 	   boston = "2367105",
 	   tokyo = "1118370",
 	   denver = "2391279";
@@ -45,7 +53,17 @@ void setup() {
 	delayQuery = minuteDelay * frameSpeed * secDelay;
 
 	println(Serial.list());
-	lampCom = new Serial(this, "COM6", 9600);
+	lampCom = new Serial(this, "COM4", 9600);
+
+	locationW = "tokyo";
+	woeid = "2367105";
+	forecastElements = "&u=f&d=7";
+	// load JSON object from URL
+	woeidURL = locationURL + locationW;
+	woeidReturn = loadJSONObject(woeidURL);
+	println(woeidReturn);
+
+	fullWeatherURL = weatherURL + woeid + forecastElements;
 
 	// weatherQuery();
 	// weatherUpdate = weatherQuery();
@@ -67,7 +85,7 @@ void draw() {
 }
 
 char[] weatherQuery() {
-	report = loadXML(weatherURL);
+	report = loadXML(fullWeatherURL);
 	char weatherCondition = 'R';
 	char tomorrowCondition = 'R';
 	char weekendCondition = 'R';
