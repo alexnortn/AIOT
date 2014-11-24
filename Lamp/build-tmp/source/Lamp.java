@@ -79,7 +79,10 @@ public void setup() {
 	// load JSON object from URL
 	woeidURL = locationURL + locationW;
 	woeidReturn = loadJSONObject(woeidURL);
-	println(woeidReturn);
+
+	JSONArray more = woeidReturn.getJSONArray("r");
+	String more2 = more.getJSONObject(0);
+	println(more2);
 
 	fullWeatherURL = weatherURL + woeid + forecastElements;
 

@@ -28,6 +28,10 @@ Todo
 
 	- Change locations on the fly with the REST interface
 
+	- Parse your new JSON Object
+
+	- Want to wrap your HTML request inside of a function // asynchronous
+
 
 ==
 
