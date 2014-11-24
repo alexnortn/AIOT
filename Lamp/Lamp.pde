@@ -24,8 +24,7 @@ String weatherURL = "http://weather.yahooapis.com/forecastrss?w=1118370&u=f&d=7"
 	   tokyo = "1118370",
 	   denver = "2391279";
 
-char   weatherCondition,
-	   weatherUpdate;
+char[] weatherUpdate;
 Serial lampCom;
 XML    report;
 long   m;
@@ -61,38 +60,47 @@ void draw() {
 	 	// println("available");
 		if (m % delayQuery == 0) {
 			weatherUpdate = weatherQuery();
-			lampCom.write(weatherUpdate);
+			lampCom.write(weatherUpdate[0]);
 		}
 	}
 
 }
 
-char weatherQuery() {
+char[] weatherQuery() {
 	report = loadXML(weatherURL);
+	char weatherCondition = 'R';
+	char tomorrowCondition = 'R';
+	char weekendCondition = 'R';
 
 	// Do all the variable passing for the recent weather query here
-
-	  String location = report.getChild("channel/yweather:location").getString("city");
-	  int    windSpeed= report.getChild("channel/yweather:wind").getInt("speed");
-	  int    windDirection = report.getChild("channel/yweather:wind").getInt("direction");
-
 	  XML    kid = report.getChild("channel/item");
 
+	  int    windSpeed= report.getChild("channel/yweather:wind").getInt("speed");
+	  int    windDirection = report.getChild("channel/yweather:wind").getInt("direction");
 	  int    temperature = kid.getChild("yweather:condition").getInt("temp");
-	  String conditionText = kid.getChild("yweather:condition").getString("text");
 	  int    conditionCode = kid.getChild("yweather:condition").getInt("code");
+	  int    weekendWeather = 0;
+
+	  String location = report.getChild("channel/yweather:location").getString("city");
+	  String conditionText = kid.getChild("yweather:condition").getString("text");
 	  String date = kid.getChild("yweather:condition").getString("date");
 
 	  	 // Forecasting Tomorrow + Weekend
  	  XML[] yweatherForecast = kid.getChildren("yweather:forecast");
-			println("This is the weather for tomorrow");
-			println(yweatherForecast[0]);
+			// println("This is the weather for tomorrow ");
+			// println(yweatherForecast[0]);
 	  int   tomWeather = yweatherForecast[0].getInt("code");
 
-	  
-
-
-
+		for (int i = 0; i < yweatherForecast.length; i++) {
+			String weekendDay = "Sat";
+			String weatherParse = yweatherForecast[i].getString("day");
+			if (weatherParse.equals(weekendDay)) {
+				// println("This is the weather for next weekend ");
+				// println(yweatherForecast[i]);
+				weekendWeather = yweatherForecast[i].getInt("code");
+				break;	
+			}
+        }
 
 	  String[] dateList = splitTokens(date); //create date string
 	  String[] dateList01 = shorten(dateList);
@@ -100,11 +108,10 @@ char weatherQuery() {
 	  String[] dateList03 = shorten(dateList02);
 	  String[] dateList04 = shorten(dateList03);
 	  String   dateDisplay = join(dateList04, " ");
-	  char     weatherUpdate_;
 
 	  //  Case statements for determining the lamp-arm position
 
-
+	  	// Today
 	  	if ((conditionCode > 29) && (conditionCode < 35)) {
 	      weatherCondition = 'C';
 	    }
@@ -144,17 +151,108 @@ char weatherQuery() {
 	    else if (conditionCode == 35) {
 	      weatherCondition = 'R';
 	    }
+	    // Tomorrow
+	    if ((tomWeather > 29) && (tomWeather < 35)) {
+	      tomorrowCondition = 'C';
+	    }
+	    else if ((tomWeather > 18) && (tomWeather < 31)) { 
+	      tomorrowCondition = 'O';
+	    }
+	    else if (tomWeather == 44) {
+	      tomorrowCondition = 'O';
+	    }
+	    else if ((tomWeather > -1) && (tomWeather < 5)) {
+	      tomorrowCondition = 'R';
+	    }
+	    else if ((tomWeather > 8) && (tomWeather < 13)) {
+	      tomorrowCondition = 'R';
+	    }
+	    else if ((tomWeather > 36) && (tomWeather < 41)) {
+	      tomorrowCondition = 'R';
+	    }
+	    else if (tomWeather == 45) {
+	      tomorrowCondition = 'R';
+	    }
+	    else if (tomWeather == 47) {
+	      tomorrowCondition = 'R';
+	    }
+	    else if ((tomWeather > 4) && (tomWeather < 11)) {
+	      tomorrowCondition = 'R';
+	    }
+	    else if  ((tomWeather > 12) && (tomWeather < 19)) {
+	      tomorrowCondition = 'R';
+	    }
+	    else if ((tomWeather > 40) && (tomWeather < 14)) {
+	      tomorrowCondition = 'R';
+	    }
+	    else if (tomWeather == 46) {
+	      tomorrowCondition = 'R';
+	    }
+	    else if (tomWeather == 35) {
+	      tomorrowCondition = 'R';
+	    }
+	    // Weekend
+	    if ((weekendWeather > 29) && (weekendWeather < 35)) {
+	      weekendCondition = 'C';
+	    }
+	    else if ((weekendWeather > 18) && (weekendWeather < 31)) { 
+	      weekendCondition = 'O';
+	    }
+	    else if (weekendWeather == 44) {
+	      weekendCondition = 'O';
+	    }
+	    else if ((weekendWeather > -1) && (weekendWeather < 5)) {
+	      weekendCondition = 'R';
+	    }
+	    else if ((weekendWeather > 8) && (weekendWeather < 13)) {
+	      weekendCondition = 'R';
+	    }
+	    else if ((weekendWeather > 36) && (weekendWeather < 41)) {
+	      weekendCondition = 'R';
+	    }
+	    else if (weekendWeather == 45) {
+	      weekendCondition = 'R';
+	    }
+	    else if (weekendWeather == 47) {
+	      weekendCondition = 'R';
+	    }
+	    else if ((weekendWeather > 4) && (weekendWeather < 11)) {
+	      weekendCondition = 'R';
+	    }
+	    else if  ((weekendWeather > 12) && (weekendWeather < 19)) {
+	      weekendCondition = 'R';
+	    }
+	    else if ((weekendWeather > 40) && (weekendWeather < 14)) {
+	      weekendCondition = 'R';
+	    }
+	    else if (weekendWeather == 46) {
+	      weekendCondition = 'R';
+	    }
+	    else if (weekendWeather == 35) {
+	      weekendCondition = 'R';
+	    }
+
 
     // Function output preparation for Arduino
-    weatherUpdate_ = weatherCondition;
-    return weatherUpdate_;
+    char[] weatherPatterns = new char[3];
+    weatherPatterns[0] = weatherCondition;
+    weatherPatterns[1] = tomorrowCondition;
+    weatherPatterns[2] = weekendCondition;
+    return weatherPatterns;
 
 }
 
 void keyReleased() {
-	if ((key == 'S') || ( key == 's')) {
-		weatherQuery();
-		weatherUpdate = weatherQuery();
-			lampCom.write(weatherUpdate);
+	weatherQuery();
+	weatherUpdate = weatherQuery();
+	if ((key == '1') || ( key == '!')) {
+		lampCom.write(weatherUpdate[0]);
+		println("The weather today is " + weatherUpdate[0]);
+	} else if ((key == '2') || ( key == '@')) {
+		lampCom.write(weatherUpdate[1]);
+		println("The weather tomorrow will be " + weatherUpdate[1]);
+	} else if ((key == '3') || ( key == '#')) {
+		lampCom.write(weatherUpdate[2]);
+		println("The weather this weekend will be " + weatherUpdate[2]);
 	}
 }
