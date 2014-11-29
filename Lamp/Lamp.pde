@@ -63,8 +63,8 @@ void setup() {
 	woeidReturn = loadJSONObject(woeidURL);
 
 	JSONArray more = woeidReturn.getJSONArray("r");
-	String more2 = more.getJSONObject(0);
-	println(more2);
+	// String more2 = more.getJSONObject(0);
+	println(more);
 
 	fullWeatherURL = weatherURL + woeid + forecastElements;
 

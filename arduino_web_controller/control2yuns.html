@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  </head>
+
+
+     <body>
+        <div class="container">
+        <h2>4.S52's Arduino Web Controller </h2>
+        <p>These buttons control an LED on the Arduino Yun. </p>
+
+        <p> 18.111.51.101
+        <button id="ledOn_id" class="btn">LED ON</button>
+        <button id="ledOff_id" class="btn"> LED OFF </button>
+        </p>
+        <br>
+        </div>
+        <div class ="container"> 
+        <p> 18.111.51.101
+        <button id="ledOn_id2" class="btn">LED ON</button>
+        <button id="ledOff_id2" class="btn"> LED OFF </button>
+        </p>
+        <br>
+        </div>
+<script type="text/javascript">
+   $('#ledOn_id').click(function(){
+        $.ajax({
+            url: "http://18.111.60.179/arduino/digital/13/1",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+        }
+    });
+});
+ 
+
+
+   $('#ledOff_id').click(function(){
+        $.ajax({
+            url: "http://18.111.60.179/arduino/digital/13/0",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+      }
+    });
+ });
+
+   $('#ledOn_id2').click(function(){
+        $.ajax({
+            url: "http://" + ip0 + "/arduino/digital/13/1",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+        }
+    });
+});
+ 
+
+
+   $('#ledOff_id2').click(function(){
+        $.ajax({
+            url: "http://" + ip0 +"/arduino/digital/13/0",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+      }
+    });
+ });
+
+
+  
+         </script>
+     </body>
+</html>
+
+
+

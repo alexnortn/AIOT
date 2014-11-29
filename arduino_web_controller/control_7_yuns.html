@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  </head>
+
+
+     <body>
+        <div class="container">
+        <h2>4.S52's Arduino Web Controller </h2>
+        <p>These buttons control an LED on the Arduino Yun. </p>
+        
+        <!- ip_0 ->
+        <p> 18.111.104.84 
+        <button id="ledOn_id0" class="btn">LED ON</button>
+        <button id="ledOff_id0" class="btn"> LED OFF </button>
+        </p>
+        <br>
+        </div>
+        
+        <!- ip_1 -> 
+        <div class="container">
+        <p> 18.111.104.84 
+        <button id="ledOn_id1" class="btn">LED ON</button>
+        <button id="ledOff_id1" class="btn"> LED OFF </button>
+        </p>
+        <br>
+        </div> 
+         
+        <!- ip_2 ->
+        <div class="container">
+        <p> 18.111.104.84 
+        <button id="ledOn_id2" class="btn">LED ON</button>
+        <button id="ledOff_id2" class="btn"> LED OFF </button>
+        </p>
+        <br>
+        </div>
+
+        
+        <!- ip_3 ->
+        <div class="container">
+        <p> 18.111.104.84 
+        <button id="ledOn_id3" class="btn">LED ON</button>
+        <button id="ledOff_id3" class="btn"> LED OFF </button>
+        </p>
+        <br>
+        </div>
+        
+
+        <!- ip_4 ->
+        <div class="container">
+        <p> 18.111.104.84 
+        <button id="ledOn_id4" class="btn">LED ON</button>
+        <button id="ledOff_id4" class="btn"> LED OFF </button>
+        </p>
+        <br>
+        </div>
+
+
+        <!- ip_5 ->
+        <div class="container">
+        <p> 18.111.104.84 
+        <button id="ledOn_id5" class="btn">LED ON</button>
+        <button id="ledOff_id5" class="btn"> LED OFF </button>
+        </p>
+        <br>
+        </div>
+
+        <!- ip_6 ->
+        <div class="container">
+        <p> 18.111.104.84 
+        <button id="ledOn_id6" class="btn">LED ON</button>
+        <button id="ledOff_id6" class="btn"> LED OFF </button>
+        </p>
+        <br>
+        </div>
+
+<script type="text/javascript">
+   
+    var ip_0 = "18.111.104.84";
+    var ip_1 = " ";
+    var ip_2 = " ";
+    var ip_3 = " ";
+    var ip_4 = " ";
+    var ip_5 = " ";
+    var ip_6 = " ";
+    var ip_7 = " ";
+
+ //functions for ip_0  
+$('#ledOn_id0').click(function(){
+        $.ajax({
+            url: "http://" + ip_0 + "/arduino/digital/13/1",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+        }
+    });
+});
+ 
+   $('#ledOff_id0').click(function(){
+        $.ajax({
+            url: "http://" + ip_0 + "/arduino/digital/13/0",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+      }
+    });
+ });
+
+//functions for ip_1
+$('#ledOn_id1').click(function(){
+        $.ajax({
+            url: "http://" + ip_1 + "/arduino/digital/13/1",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+        }
+    });
+});
+ 
+   $('#ledOff_id1').click(function(){
+        $.ajax({
+            url: "http://" + ip_1 + "/arduino/digital/13/0",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+      }
+    });
+ });
+
+//functions for ip_2
+$('#ledOn_id2').click(function(){
+        $.ajax({
+            url: "http://" + ip_2 + "/arduino/digital/13/1",
+            jsonp: "jsonp",
+            dataType: "jsonp",
+            success: function(response){
+               console.log(response);
+        }
+    }).done(function(e)){
+      console.log(e); 
+});
+ 
+   $('#ledOff_id2').click(function(){
+        $.ajax({
+            url: "http://" + ip_2 + "/arduino/digital/13/0",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+      }
+    });
+ });
+
+//functions for ip_3
+$('#ledOn_id3').click(function(){
+        $.ajax({
+            url: "http://" + ip_3 + "/arduino/digital/13/1",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+        }
+    });
+});
+ 
+   $('#ledOff_id3').click(function(){
+        $.ajax({
+            url: "http://" + ip_3 + "/arduino/digital/13/0",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+      }
+    });
+ });
+
+
+//functions for ip_4
+$('#ledOn_id4').click(function(){
+        $.ajax({
+            url: "http://" + ip_4 + "/arduino/digital/13/1",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+        }
+    });
+});
+ 
+   $('#ledOff_id4').click(function(){
+        $.ajax({
+            url: "http://" + ip_4 + "/arduino/digital/13/0",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+      }
+    });
+
+
+//functions for ip_5
+$('#ledOn_id5').click(function(){
+        $.ajax({
+            url: "http://" + ip_5 + "/arduino/digital/13/1",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+        }
+    });
+});
+ 
+   $('#ledOff_id5').click(function(){
+        $.ajax({
+            url: "http://" + ip_5 + "/arduino/digital/13/0",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+      }
+    });
+
+
+//functions for ip_6
+$('#ledOn_id6').click(function(){
+        $.ajax({
+            url: "http://" + ip_6 + "/arduino/digital/13/1",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+        }
+    });
+});
+ 
+   $('#ledOff_id6').click(function(){
+        $.ajax({
+            url: "http://" + ip_6 + "/arduino/digital/13/0",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data:{},
+            success: function(response){
+               console.log(response);
+      }
+    });
+         </script>
+     </body>
+</html>
+
+
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  </head>
+
+
+     <body>
+        <div class="container">
+        <h2>4.S52's Arduino Web Controller </h2>
+        <p>These buttons control an LED on the Arduino Yun. </p>
+
+        <p> 18.111.104.84 
+        <button id="ledOn_id2" class="btn"> LED VALUE</button>
+        </p>
+        <br>
+       <span id="results"> </span>
+
+        </div>
+<script type="text/javascript">
+
+   $('#ledOn_id2').click(function(){
+        $.ajax({
+            url: "http://18.111.104.84/data/get/ledPin",
+            dataType: "jsonp",
+            jsonp:"jsonp",
+            success:function(result){
+               console.log(result);
+               console.log(result.value);
+               ledValue = result.value;
+             $('#results').html("Value of LED: " + ledValue);
+
+          }       
+       });
+    });
+
+  
+         </script>
+  
+         </script>
+     </body>
+</html>
+
+
+
