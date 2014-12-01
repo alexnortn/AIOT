@@ -61,7 +61,7 @@ void setup() {
 	forecastElements = "&u=f&d=7";
 	// load JSON object from URL
 	woeidURL = locationURL + locationW;
-	println(woeidURL);
+	// println(woeidURL);
 	woeidReturn = loadJSONObject(woeidURL);
 	// println(woeidReturn);
 
@@ -74,7 +74,7 @@ void setup() {
 	println(woeidFeed[1]);
 
 	fullWeatherURL = weatherURL + woeid + forecastElements;
-	// println(fullWeatherURL);
+	println(fullWeatherURL);
 
 	// weatherQuery();
 	// weatherUpdate = weatherQuery();

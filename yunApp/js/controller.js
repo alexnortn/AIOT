@@ -1,5 +1,7 @@
 $( document ).ready(function() {
 
+  // Deal with the Arduino Buttons...
+
   $('#ledOn_id').click(function(){
     console.log("Success");
     $.ajax({
@@ -52,6 +54,8 @@ $( document ).ready(function() {
     });
   });
 
+  // Geolocate Function
+
   $('#geoLocate').click(function(){
     getLocation();
   });
@@ -87,5 +91,22 @@ $( document ).ready(function() {
               break;
       }
   }
+
+  // Create instance of this Class, use the 'get' method to call function
+
+   $('#weather').click(function(){
+    var weatherURL = "http://weather.yahooapis.com/forecastrss?w=2367105&u=f&d=7"
+    $.ajax({
+      url: weatherURL,
+      jsonp: "callback",
+      dataType: "xml",
+      data:{},
+      success: function(response){
+        console.log(response);
+        var x = document.getElementById("weatherResults");
+        x.innerHTML = response;
+      }
+    });
+  });
 
 });
