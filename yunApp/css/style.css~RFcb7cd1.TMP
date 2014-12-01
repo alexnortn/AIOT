@@ -79,46 +79,41 @@ p {
 	/*background-color: gray;*/
 }
 
-.lampArm {
-	width: 300px;
-	padding: 10px;
-	position: absolute;
+#lampArm {
 	-webkit-transform-origin: 39% 29%;
-	transition: 1s;
 }
 
-.lampArmUp {
+#lampArmUp {
 	-webkit-transform: rotate(-15deg);
-}
-
-.lampArmMd {
-	-webkit-transform: rotate(15deg);
-}
-
-.lampArmDn {
-	-webkit-transform: rotate(30deg);
-}
-
-.lampShade {
-	width: 300px;
-	padding: 10px;
-	position: absolute;
 	transition: 1s;
 }
 
-.lampShadeUp {
+#lampArmMd {
+	-webkit-transform: rotate(15deg);
+	transition: 1s;
+}
+
+#lampArmDn {
+	-webkit-transform: rotate(30deg);
+	transition: 1s;
+}
+
+#lampShadeUp {
 	-webkit-transform: translateY(-40px);
+	transition: 1s;
 }
 
-.lampShadeMd {
+#lampShadeMd {
 	-webkit-transform: translateY(35px);
+	transition: 1s;
 }
 
-.lampShadeDn {
-	-webkit-transform: translateY(70px);
+#lampShadeDn {
+	-webkit-transform: translateY(-40px);
+	transition: 1s;
 }
 
-.lampBase {
+.lampAsset {
 	width: 300px;
 	padding: 10px;
 	position: absolute;

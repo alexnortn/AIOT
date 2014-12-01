@@ -51,14 +51,6 @@ p {
 	background-color: #262626; 
 }
 
-#footer {
-	height: 25px;
-	background-color: #262626; 
-	bottom: 0px;
-	width: 100%;
-	position: fixed;
-}
-
 #mainContainer {
 	width: 586px;
 	padding: 50px;
@@ -79,46 +71,7 @@ p {
 	/*background-color: gray;*/
 }
 
-.lampArm {
-	width: 300px;
-	padding: 10px;
-	position: absolute;
-	-webkit-transform-origin: 39% 29%;
-	transition: 1s;
-}
-
-.lampArmUp {
-	-webkit-transform: rotate(-15deg);
-}
-
-.lampArmMd {
-	-webkit-transform: rotate(15deg);
-}
-
-.lampArmDn {
-	-webkit-transform: rotate(30deg);
-}
-
-.lampShade {
-	width: 300px;
-	padding: 10px;
-	position: absolute;
-	transition: 1s;
-}
-
-.lampShadeUp {
-	-webkit-transform: translateY(-40px);
-}
-
-.lampShadeMd {
-	-webkit-transform: translateY(35px);
-}
-
-.lampShadeDn {
-	-webkit-transform: translateY(70px);
-}
-
-.lampBase {
+.lampAsset {
 	width: 300px;
 	padding: 10px;
 	position: absolute;

@@ -16190,24 +16190,23 @@ AAD/2Q==">
 	<polygon fill="#333333" stroke="#000000" stroke-width="5" stroke-miterlimit="10" points="2152.088,3235.65 2082.022,335.826 
 		1905.022,335.826 1835.254,3263.969 1400.706,3302.807 1356.703,3532.83 3123.879,3532.83 3123.879,3148.793 	"/>
 	<circle fill="#FFFFFF" cx="2001.022" cy="3054.953" r="20"/>
+	<circle fill="#FFFFFF" cx="2001.022" cy="970.326" r="20"/>
 </g>
 <g id="Arm" display="none">
-	<g display="inline">
-		<polygon fill="none" stroke="#000000" stroke-width="5" stroke-miterlimit="10" points="5242.271,150.326 5218.771,65.076 
-			827.664,1212.509 818.748,1179.493 0,1362.783 72.709,1632.368 873.456,1382.075 865.446,1352.414 		"/>
-		<circle fill="none" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="2001.022" cy="970.326" r="20"/>
-		<circle fill="none" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="971.369" cy="1247" r="20"/>
-		<circle fill="none" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="733.004" cy="1309.712" r="20"/>
-		<circle fill="none" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="513.504" cy="1369.212" r="20"/>
-	</g>
+	<polygon display="inline" fill="#333333" points="5242.271,150.326 5218.771,65.076 827.664,1212.509 818.748,1179.493 0,1362.783 
+		72.709,1632.368 873.456,1382.075 865.446,1352.414 	"/>
+	<circle display="inline" fill="#FFFFFF" cx="971.369" cy="1247" r="20"/>
+	<circle display="inline" fill="#FFFFFF" cx="733.004" cy="1309.712" r="20"/>
+	<circle display="inline" fill="#FFFFFF" cx="513.504" cy="1369.212" r="20"/>
 </g>
 <g id="Lamp" display="none">
-	<g display="inline">
-		<polygon fill="none" stroke="#000000" stroke-width="5" stroke-miterlimit="10" points="4861.492,877.458 4515.689,877.458 
-			4515.689,0 4396.521,0 4396.521,877.458 4037.563,877.458 3932.553,1495.427 4964.502,1495.427 		"/>
-		<circle fill="none" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="4458.072" cy="311.485" r="20"/>
-		<circle fill="none" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="4458.072" cy="802.63" r="20"/>
-	</g>
+	<rect x="4396.521" display="inline" fill="#333333" width="119.168" height="877.458"/>
+	<polygon display="inline" fill="none" stroke="#333333" stroke-width="5" stroke-miterlimit="10" points="4861.492,877.458 
+		4515.689,877.458 4396.521,877.458 4037.563,877.458 3932.553,1495.427 4964.502,1495.427 	"/>
+	
+		<circle display="inline" fill="#FFFFFF" stroke="#333333" stroke-width="5" stroke-miterlimit="10" cx="4458.072" cy="311.485" r="20"/>
+	
+		<circle display="inline" fill="#FFFFFF" stroke="#333333" stroke-width="5" stroke-miterlimit="10" cx="4458.072" cy="802.63" r="20"/>
 </g>
 <g id="Measurements" display="none">
 	<g display="inline">
