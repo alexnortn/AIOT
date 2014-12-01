@@ -28,6 +28,8 @@ String weatherURL = "http://weather.yahooapis.com/forecastrss?w=",
 	   fullWeatherURL,
 	   woeidURL,
 	   locationW,
+	   latitude,
+	   longitude,
 	   boston = "2367105",
 	   tokyo = "1118370",
 	   denver = "2391279";
@@ -60,13 +62,20 @@ void setup() {
 	forecastElements = "&u=f&d=7";
 	// load JSON object from URL
 	woeidURL = locationURL + locationW;
+	println(woeidURL);
 	woeidReturn = loadJSONObject(woeidURL);
+	// println(woeidReturn);
 
 	JSONArray more = woeidReturn.getJSONArray("r");
-	// String more2 = more.getJSONObject(0);
-	println(more);
+	JSONObject more2 = more.getJSONObject(0);
+	String place = more2.getString("d");
+	String[] placePieces = splitTokens(place, "&");
+
+	String[] woeidFeed = split(placePieces[1], "=");
+	println(woeidFeed[1]);
 
 	fullWeatherURL = weatherURL + woeid + forecastElements;
+	// println(fullWeatherURL);
 
 	// weatherQuery();
 	// weatherUpdate = weatherQuery();
