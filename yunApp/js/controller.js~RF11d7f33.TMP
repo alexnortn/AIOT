@@ -111,12 +111,12 @@ $( document ).ready(function() {
 
     if ((x)&&(y)&&(z)) {
       console.log("Load Success");
+      // $('#lampShade').prepend('<img id="lampShade.svg" src="img/lampShade2.svg" />');
     }
 
   };
+      
+  imgLoad();
 
-  window.onload = function() {
-    imgLoad();
-  };
-    
+
 });
