@@ -43,7 +43,6 @@ int    delayQuery,
 	   secDelay,
 	   frameSpeed;
 
-
 void setup() {
 	size(200,200);
 	// delay is the time between API calls for weather updates

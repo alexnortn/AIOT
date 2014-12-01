@@ -56,7 +56,7 @@ $( document ).ready(function() {
     getLocation();
   });
 
-  var x = document.getElementById("demo");
+  var x = document.getElementById("geoResults");
 
   function getLocation() {
       if (navigator.geolocation) {
