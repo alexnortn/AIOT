@@ -13,26 +13,26 @@
   <body>
     <div id="mainContainer">
       <div class="container">
-        <h2 class="heading">Gestural Lamp</h2>
+        <h2>Gestural Lamp</h2>
         <div id="lamp">
-          <img id="lampArm" class="lampAsset" src="img/lampArm.svg" alt="Lamp Arm">
-          <img id="lampShade" class="lampAsset" src="img/lampShade.svg" alt="Lamp Shade">
-          <img id="lampBase" class="lampAsset" src="img/lampBase.svg" alt="Lamp Base">
+          <img class="lampAsset" src="img/lampArm.svg" alt="Lamp Arm">
+          <img class="lampAsset" src="img/lampShade.svg" alt="Lamp Shade">
+          <img class="lampAsset" src="img/lampBase.svg" alt="Lamp Base">
         </div>
         <p>Forecast Period</p>
-          <button id="today_id" class="bttn">Today</button>
-          <button id="tomorrow_id" class="bttn">Tomorrow</button>
-          <button id="weekend_id" class="bttn">Weekend</button>
+          <button id="today_id" class="btn">Today</button>
+          <button id="tomorrow_id" class="btn">Tomorrow</button>
+          <button id="weekend_id" class="btn">Weekend</button>
         </p>
       </div>
       <div class='container'>
         <p>Click the button to get your coordinates.</p>
-        <button id="geoLocate" class="bttn">GeoLocate</button>
+        <button id="geoLocate" class="btn">GeoLocate</button>
         <p id="geoResults"></p>
       </div>
       <div class='container'>
         <p>Here's the Weather</p>
-        <button id="weather" class="bttn">GetWeather</button>
+        <button id="weather" class="btn">GetWeather</button>
         <p id="weatherResults"></p>
       </div>
     </div>

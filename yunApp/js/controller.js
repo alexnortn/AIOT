@@ -2,7 +2,7 @@ $( document ).ready(function() {
 
   // Deal with the Arduino Buttons...
 
-  $('#ledOn_id').click(function(){
+  $('#today_id').click(function(){
     console.log("Success");
     $.ajax({
       url: "http://18.111.60.179/arduino/digital/13/1",
@@ -15,7 +15,7 @@ $( document ).ready(function() {
     });
   });
  
-  $('#ledOff_id').click(function(){
+  $('#tomorrow_id').click(function(){
     console.log("Success");
     $.ajax({
       url: "http://18.111.60.179/arduino/digital/13/0",
@@ -28,23 +28,10 @@ $( document ).ready(function() {
     });
   });
 
-  $('#ledOn_id2').click(function(){
+  $('#weekend_id2').click(function(){
     console.log("Success");
     $.ajax({
       url: "http://" + ip0 + "/arduino/digital/13/1",
-      jsonp: "callback",
-      dataType: "jsonp",
-      data:{},
-      success: function(response){
-         console.log(response);
-      }
-    });
-  });
- 
-  $('#ledOff_id2').click(function(){
-    console.log("Success");
-    $.ajax({
-      url: "http://" + ip0 +"/arduino/digital/13/0",
       jsonp: "callback",
       dataType: "jsonp",
       data:{},
@@ -73,6 +60,7 @@ $( document ).ready(function() {
   function showPosition(position) {
       x.innerHTML = "Latitude: " + position.coords.latitude + 
       "<br>Longitude: " + position.coords.longitude;  
+      console.log(position);
   }
 
   function showError(error) {
@@ -95,14 +83,15 @@ $( document ).ready(function() {
   // Create instance of this Class, use the 'get' method to call function
 
    $('#weather').click(function(){
-    var weatherURL = "http://weather.yahooapis.com/forecastrss?w=2367105&u=f&d=7"
+    var weatherURL = "http://api.wunderground.com/api/9867e8006f7cddb7/forecast10day/conditions/q/tokyo.json"
     $.ajax({
       url: weatherURL,
-      xml: "callback",
-      dataType: "xml",
+      jsonp: "callback",
+      dataType: "jsonp",
       data:{},
-      success: function(){
+      success: function(response){
         console.log(weatherURL);
+        console.log(response);
         var x = document.getElementById("weatherResults");
         x.innerHTML = weatherURL;
       }

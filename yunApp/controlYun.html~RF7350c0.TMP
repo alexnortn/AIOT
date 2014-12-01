@@ -13,26 +13,32 @@
   <body>
     <div id="mainContainer">
       <div class="container">
-        <h2 class="heading">Gestural Lamp</h2>
+        <h2>4.S52's Arduino Web Controller </h2>
         <div id="lamp">
-          <img id="lampArm" class="lampAsset" src="img/lampArm.svg" alt="Lamp Arm">
-          <img id="lampShade" class="lampAsset" src="img/lampShade.svg" alt="Lamp Shade">
-          <img id="lampBase" class="lampAsset" src="img/lampBase.svg" alt="Lamp Base">
+          <img src="kiwi.svg" alt="Kiwi standing on oval">
         </div>
-        <p>Forecast Period</p>
-          <button id="today_id" class="bttn">Today</button>
-          <button id="tomorrow_id" class="bttn">Tomorrow</button>
-          <button id="weekend_id" class="bttn">Weekend</button>
+        <p>These buttons control an LED on the Arduino Yun. </p>
+        <p> 18.111.51.101
+          <button id="ledOn_id" class="btn">LED ON</button>
+          <button id="ledOff_id" class="btn"> LED OFF </button>
         </p>
+        <br>
+      </div>
+      <div class ="container"> 
+        <p> 18.111.51.101
+          <button id="ledOn_id2" class="btn">LED ON</button>
+          <button id="ledOff_id2" class="btn">LED OFF</button>
+        </p>
+        <br>
       </div>
       <div class='container'>
         <p>Click the button to get your coordinates.</p>
-        <button id="geoLocate" class="bttn">GeoLocate</button>
+        <button id="geoLocate" class="btn">GeoLocate</button>
         <p id="geoResults"></p>
       </div>
       <div class='container'>
         <p>Here's the Weather</p>
-        <button id="weather" class="bttn">GetWeather</button>
+        <button id="weather" class="btn">GetWeather</button>
         <p id="weatherResults"></p>
       </div>
     </div>

@@ -35,4 +35,13 @@ Todo
 
 ==
 
+	Your app will now run off of the 'Weather Underground' app due to a lack of usefullness from Yahoo.
+	This is your api key:
+		9867e8006f7cddb7
+
+	With WeatherUnderground it is possible to retrieve:
+		10Dayforecast
+		Also, a forecast tailored to unique coordinates
+		http://api.wunderground.com/api/9867e8006f7cddb7/geolookup/q/37.776289,-122.395234.json
+
 Alex
