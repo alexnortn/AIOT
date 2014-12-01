@@ -104,14 +104,12 @@ $( document ).ready(function() {
     });
   });
 
-});
-
-function imgLoad() {
+  function imgLoad() {
     var x = document.getElementById("lampShade").complete;
     var y = document.getElementById("lampArm").complete;
     var z = document.getElementById("lampBase").complete;
-
-    if (x == true) {
+    
+    if (x) {
       console.log("LampShade Loaded");
     }
     if (y) {
@@ -122,4 +120,6 @@ function imgLoad() {
     }
   }
 
-  var checkLoad = imgLoad();
+  imgLoad();
+
+});
