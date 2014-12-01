@@ -98,13 +98,13 @@ $( document ).ready(function() {
     var weatherURL = "http://weather.yahooapis.com/forecastrss?w=2367105&u=f&d=7"
     $.ajax({
       url: weatherURL,
-      jsonp: "callback",
+      xml: "callback",
       dataType: "xml",
       data:{},
-      success: function(response){
-        console.log(response);
+      success: function(){
+        console.log(weatherURL);
         var x = document.getElementById("weatherResults");
-        x.innerHTML = response;
+        x.innerHTML = weatherURL;
       }
     });
   });
