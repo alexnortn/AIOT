@@ -5,7 +5,7 @@ $( document ).ready(function() {
   $('#today_id').click(function(){
     $( "#lampArm" ).removeClass().addClass("lampArm lampArmUp");
     $( "#lampShade" ).removeClass().addClass("lampShade lampShadeUp");
-    console.log("Today Weather is Clear");
+    console.log("Today the Skies are Clear");
     $.ajax({
       url: "http://18.111.60.179/arduino/digital/13/1",
       jsonp: "callback",
@@ -20,7 +20,7 @@ $( document ).ready(function() {
   $('#tomorrow_id').click(function(){
     $( "#lampArm" ).removeClass().addClass("lampArm lampArmDn");
     $( "#lampShade" ).removeClass().addClass("lampShade lampShadeDn");
-    console.log("Today Weather is Rainy");
+    console.log("Tomorrow it's going to Pour");
     $.ajax({
       url: "http://18.111.60.179/arduino/digital/13/0",
       jsonp: "callback",
@@ -35,7 +35,7 @@ $( document ).ready(function() {
   $('#weekend_id').click(function(){
     $( "#lampArm" ).removeClass().addClass("lampArm lampArmMd");
     $( "#lampShade" ).removeClass().addClass("lampShade lampShadeMd");
-    console.log("Today Weather is Overcast");
+    console.log("This Weekend it will be Overcast");
     $.ajax({
       url: "http://" + ip0 + "/arduino/digital/13/1",
       jsonp: "callback",
@@ -89,7 +89,8 @@ $( document ).ready(function() {
   // Create instance of this Class, use the 'get' method to call function
 
    $('#weather').click(function(){
-    var weatherURL = "http://api.wunderground.com/api/9867e8006f7cddb7/forecast10day/conditions/q/tokyo.json"
+    var weatherURL = "http://api.wunderground.com/api/9867e8006f7cddb7/forecast10day/conditions/q/boston,ma.json"
+    var localJson = $.getJSON("js/tokyo10day.json");
     $.ajax({
       url: weatherURL,
       jsonp: "callback",

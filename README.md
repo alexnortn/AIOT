@@ -44,4 +44,24 @@ Todo
 		Also, a forecast tailored to unique coordinates
 		http://api.wunderground.com/api/9867e8006f7cddb7/geolookup/q/37.776289,-122.395234.json
 
+	Could the lamp learn?
+		What about training this thing?
+		Could it adapt to the users habits?
+		Y knot..
+		Qualitative adaption..?
+		Don't forget the color..
+
+	There is beauty in training something as simple as this lamp
+		Embedding technology really elegantly into really elegant objects.
+		Objects that learn- learn the way that we learn.
+		Damn.. no you can really do this.
+
+
+	The lamp is a single componet of your workspace.. could you create a system of systems that learns your habits in the sense that it adapts to the ways that you use the space..
+		That's degree project worthy!
+
+	Probably learn to link this all together in a google spreadsheet! That way we have a nice log file setup.
+
+==
+
 Alex
