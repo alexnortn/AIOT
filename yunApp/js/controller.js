@@ -3,8 +3,8 @@ $( document ).ready(function() {
   // Deal with the Arduino Buttons...
 
   $('#today_id').click(function(){
-    $( ".lampArm" ).toggleClass("lampArmUp");
-    $( ".lampShade" ).toggleClass( "lampShadeUp" );
+    $( "#lampArm" ).removeClass().addClass("lampArm lampArmUp");
+    $( "#lampShade" ).removeClass().addClass("lampShade lampShadeUp");
     console.log("Today Weather is Clear");
     $.ajax({
       url: "http://18.111.60.179/arduino/digital/13/1",
@@ -18,8 +18,8 @@ $( document ).ready(function() {
   });
  
   $('#tomorrow_id').click(function(){
-    $( ".lampArm" ).toggleClass("lampArmDn");
-    $( ".lampShade" ).toggleClass( "lampShadeDn" );
+    $( "#lampArm" ).removeClass().addClass("lampArm lampArmDn");
+    $( "#lampShade" ).removeClass().addClass("lampShade lampShadeDn");
     console.log("Today Weather is Rainy");
     $.ajax({
       url: "http://18.111.60.179/arduino/digital/13/0",
@@ -32,9 +32,9 @@ $( document ).ready(function() {
     });
   });
 
-  $('#weekend_id2').click(function(){
-    $( ".lampArm" ).toggleClass("lampArmMd");
-    $( ".lampShade" ).toggleClass( "lampShadeMd" );
+  $('#weekend_id').click(function(){
+    $( "#lampArm" ).removeClass().addClass("lampArm lampArmMd");
+    $( "#lampShade" ).removeClass().addClass("lampShade lampShadeMd");
     console.log("Today Weather is Overcast");
     $.ajax({
       url: "http://" + ip0 + "/arduino/digital/13/1",
