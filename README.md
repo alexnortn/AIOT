@@ -64,4 +64,12 @@ Todo
 
 ==
 
+	I have been beaten!
+	I have not been stirred!
+
+	Ha- Check it out, predictive weather devices + IoT : ]
+		http://www.wired.com/2014/12/three-charming-gadgets-show-weather-sights-sounds/?mbid=social_fb
+
+	Pretty cool! I really like the temperacture one - qualitative data for everyone!
+	
 Alex

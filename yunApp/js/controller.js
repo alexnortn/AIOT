@@ -1,11 +1,22 @@
 $( document ).ready(function() {
 
   // Deal with the Arduino Buttons...
+  var llatitude,
+      llongitude,
+      gesture,
+      lampUpdate,
+      classes,
+      weatherUpdate;
+  var time = 0;
+  var location = "Boston, Ma";
 
   $('#today_id').click(function(){
-    $( "#lampArm" ).removeClass().addClass("lampArm lampArmUp");
-    $( "#lampShade" ).removeClass().addClass("lampShade lampShadeUp");
-    console.log("Today the Skies are Clear");
+    time = 0;
+    loadWeather(time);
+    lampUpdate = whatIsW (weatherUpdate);
+    $( "#lampArm" ).removeClass().addClass("lampArm" + classes[0]);
+    $( "#lampShade" ).removeClass().addClass("lampShade" + classes[1]);
+    console.log("Weather set today: time = " + time);
     $.ajax({
       url: "http://18.111.60.179/arduino/digital/13/1",
       jsonp: "callback",
@@ -18,9 +29,12 @@ $( document ).ready(function() {
   });
  
   $('#tomorrow_id').click(function(){
-    $( "#lampArm" ).removeClass().addClass("lampArm lampArmDn");
-    $( "#lampShade" ).removeClass().addClass("lampShade lampShadeDn");
-    console.log("Tomorrow it's going to Pour");
+    time = 1;
+    loadWeather(time);
+    lampUpdate = whatIsW (weatherUpdate);
+    $( "#lampArm" ).removeClass().addClass("lampArm" + classes[0]);
+    $( "#lampShade" ).removeClass().addClass("lampShade" + classes[1]);
+    console.log("Weather set tomorrow: time = " + time);
     $.ajax({
       url: "http://18.111.60.179/arduino/digital/13/0",
       jsonp: "callback",
@@ -33,9 +47,13 @@ $( document ).ready(function() {
   });
 
   $('#weekend_id').click(function(){
-    $( "#lampArm" ).removeClass().addClass("lampArm lampArmMd");
-    $( "#lampShade" ).removeClass().addClass("lampShade lampShadeMd");
-    console.log("This Weekend it will be Overcast");
+    time = 2;
+    loadWeather(time);
+    lampUpdate = whatIsW (weatherUpdate);
+    console.log(lampUpdate);
+    $( "#lampArm" ).removeClass().addClass("lampArm" + classes[0]);
+    $( "#lampShade" ).removeClass().addClass("lampShade" + classes[1]);
+    console.log("Weather set weekend: time = " + time);
     $.ajax({
       url: "http://" + ip0 + "/arduino/digital/13/1",
       jsonp: "callback",
@@ -67,6 +85,8 @@ $( document ).ready(function() {
       x.innerHTML = "Latitude: " + position.coords.latitude + 
       "<br>Longitude: " + position.coords.longitude;  
       console.log(position);
+      llatitude = position.coords.latitude;
+      llongitude = position.coords.longitude;
   }
 
   function showError(error) {
@@ -88,8 +108,13 @@ $( document ).ready(function() {
 
   // Create instance of this Class, use the 'get' method to call function
 
-   $('#weather').click(function(){
-    var weatherURL = "http://api.wunderground.com/api/9867e8006f7cddb7/forecast10day/conditions/q/boston,ma.json"
+  $('#weather').click(function(){
+    loadWeather(time);
+  });
+
+  function loadWeather(time) {
+     var baseWeatherURL = "http://api.wunderground.com/api/9867e8006f7cddb7/forecast10day/conditions/q/"
+    var weatherURL = baseWeatherURL + llatitude + "," + llongitude + ".json";
     var localJson = $.getJSON("js/tokyo10day.json");
     $.ajax({
       url: weatherURL,
@@ -99,11 +124,44 @@ $( document ).ready(function() {
       success: function(response){
         console.log(weatherURL);
         console.log(response);
+        //  Weather Query for Today
+        if (time == 0) {
+          var weatherCondition = response.current_observation.weather;
+          location = response.current_observation.display_location.full;
+          weatherUpdate = "Today, the weather in " + location + " is " + weatherCondition;
+          console.log(weatherUpdate);
+        }
+        //  Weather Query for Tomorrow
+        else if (time == 1) {
+          var weatherCondition = response.forecast.simpleforecast.forecastday[1].conditions;
+          var location = response.current_observation.display_location.full;
+          weatherUpdate = "Tomorrow, in " + location + " the weather will be " + weatherCondition;
+          console.log(weatherUpdate);
+        }
+        //  Weather Query for Weekend
+        else if (time == 2) {
+          var Saturday,
+              forecastDayW,
+              weatherCondition;
+          var forecastLength = response.forecast.simpleforecast.forecastday.length;
+
+          for(i=0; i < forecastLength; i++) {
+            forecastDayW = response.forecast.simpleforecast.forecastday[i].date.weekday;
+            if (forecastDayW == "Saturday") {
+              weatherCondition = response.forecast.simpleforecast.forecastday[i].conditions;
+              break;
+            }
+          }
+          var location = response.current_observation.display_location.full;
+          weatherUpdate = "This weekend, in " + location + " the weather will be " + weatherCondition;
+          console.log(weatherUpdate);
+        };
+        // Effect Dom element
         var x = document.getElementById("weatherResults");
-        x.innerHTML = weatherURL;
+        x.innerHTML = weatherUpdate;
       }
     });
-  });
+  };
 
   function imgLoad() {
     var x = document.getElementById("lampShade").complete;
@@ -119,5 +177,102 @@ $( document ).ready(function() {
   window.onload = function() {
     imgLoad();
   };
-    
+
+  function whatIsW (weatherUpdate) {
+    switch (weatherUpdate) {
+      case "Chance of Flurries":
+          gesture = "low";
+          break;
+      case "Chance of Rain":
+          gesture = "low";
+          break;
+      case "Chance Rain":
+          gesture = "low";
+          break;
+      case "Chance of Freezing Rain":
+          gesture = "low";
+          break;
+      case "Chance of Sleet":
+          gesture = "low";
+          break;
+      case "Chance of Snow":
+          gesture = "low";
+          break;
+      case "Chance of Thunderstorms":
+          gesture = "low";
+          break;
+      case "Chance of a Thunderstorm":
+          gesture = "low";
+          break;
+      case "Clear":
+          gesture = "high";
+          break;
+      case "Cloudy":
+          gesture = "medium";
+          break;
+      case "Flurries":
+          gesture = "medium";
+          break;
+      case "Fog":
+          gesture = "medium";
+          break;
+      case "Haze":
+          gesture = "medium";
+          break;
+      case "Mostly Cloudy":
+          gesture = "medium";
+          break;
+      case "Mostly Sunny":
+          gesture = "high";
+          break;
+      case "Partly Cloudy":
+          gesture = "medium";
+          break;
+      case "Partly Sunny":
+          gesture = "high";
+          break;
+      case "Freezing Rain":
+          gesture = "low";
+          break;
+      case "Rain":
+          gesture = "low";
+          break;
+      case "Sleet":
+          gesture = "low";
+          break;
+      case "Snow":
+          gesture = "low";
+          break;
+      case "Sunny":
+          gesture = "high";
+          break;
+      case "Thunderstorms":
+          gesture = "low";
+          break;
+      case "Thunderstorm":
+          gesture = "low";
+          break;
+      case "Unknown":
+          gesture = "medium";
+          break;
+      case "Overcast":
+          gesture = "medium";
+          break;
+      case "Scattered Clouds":
+          gesture = "medium";
+          break;
+    }
+
+    if (gesture == "low") {
+      classes = [" lampArmDn", " lampShadeDn"]
+    } else if (gesture == "medium") {
+      classes = [" lampArmMd", " lampShadeMd"]
+    } else {
+      classes = [" lampArmUp", " lampShadeUp"]
+    }
+
+    return classes;
+
+  };
+
 });
