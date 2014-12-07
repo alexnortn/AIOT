@@ -1,59 +1,65 @@
 $( document ).ready(function() {
 
-  // Deal with the Arduino Buttons...
-  var llatitude,
-      llongitude,
-      gesture,
-      lampUpdate,
+  var llatitude = 42.3463503;
+  var llongitude = -71.1626756;
+  var gesture,
       classes,
+      timer,
       weatherUpdate;
+  var weatherCondition;
   var time = 0;
   var location = "Boston, Ma";
+  var autoUpdate = false;
+  var updateFunc;
 
   $('#today_id').click(function(){
     time = 0;
-    loadWeather(time);
-    lampUpdate = whatIsW (weatherUpdate);
-    $( "#lampArm" ).removeClass().addClass("lampArm" + classes[0]);
-    $( "#lampShade" ).removeClass().addClass("lampShade" + classes[1]);
-    console.log("Weather set today: time = " + time);
-    $.ajax({
-      url: "http://18.111.60.179/arduino/digital/13/1",
-      jsonp: "callback",
-      dataType: "jsonp",
-      data:{},
-      success: function(response){
-         console.log(response);
-      }
-    });
+    checkWeather(time);
   });
  
   $('#tomorrow_id').click(function(){
     time = 1;
-    loadWeather(time);
-    lampUpdate = whatIsW (weatherUpdate);
-    $( "#lampArm" ).removeClass().addClass("lampArm" + classes[0]);
-    $( "#lampShade" ).removeClass().addClass("lampShade" + classes[1]);
-    console.log("Weather set tomorrow: time = " + time);
-    $.ajax({
-      url: "http://18.111.60.179/arduino/digital/13/0",
-      jsonp: "callback",
-      dataType: "jsonp",
-      data:{},
-      success: function(response){
-         console.log(response);
-      }
-    });
+    checkWeather(time);
   });
 
   $('#weekend_id').click(function(){
     time = 2;
-    loadWeather(time);
-    lampUpdate = whatIsW (weatherUpdate);
-    console.log(lampUpdate);
+    checkWeather(time);
+  });
+
+  $('#autoUpdate').click(function(){
+    autoUpdate = !autoUpdate;
+    if (autoUpdate) {
+      console.log("Auto Update");
+      updateFunc = setInterval( function () { checkWeather(time) }, timer);
+      $( this ).css( "background-color", "green" )
+               .css( "color", "#fafafa" );
+    } else {
+      $( this ).css( "background-color", "#fafafa" )
+               .css( "color", "black" );
+      console.log("Manual Update");
+      clearInterval(updateFunc);
+    }
+  });
+
+  var query = function() {
+      loadWeather(time);
+      whatIsW(weatherCondition);
+    };
+
+  function updateInterval(minute) {
+    var interval = minute * 60000;
+    console.log("Time Interval set for " + minute + " minute(s)");
+    return interval;
+  }
+
+  timer = updateInterval(5);
+
+  function checkWeather(time) {
+    console.log("Auto Update Weather");
+    query();
     $( "#lampArm" ).removeClass().addClass("lampArm" + classes[0]);
     $( "#lampShade" ).removeClass().addClass("lampShade" + classes[1]);
-    console.log("Weather set weekend: time = " + time);
     $.ajax({
       url: "http://" + ip0 + "/arduino/digital/13/1",
       jsonp: "callback",
@@ -63,12 +69,13 @@ $( document ).ready(function() {
          console.log(response);
       }
     });
-  });
+  };
 
   // Geolocate Function
 
   $('#geoLocate').click(function(){
     getLocation();
+    checkWeather(time);
   });
 
   var x = document.getElementById("geoResults");
@@ -109,13 +116,12 @@ $( document ).ready(function() {
   // Create instance of this Class, use the 'get' method to call function
 
   $('#weather').click(function(){
-    loadWeather(time);
+    checkWeather(time);
   });
 
   function loadWeather(time) {
-     var baseWeatherURL = "http://api.wunderground.com/api/9867e8006f7cddb7/forecast10day/conditions/q/"
+    var baseWeatherURL = "http://api.wunderground.com/api/9867e8006f7cddb7/forecast10day/conditions/q/"
     var weatherURL = baseWeatherURL + llatitude + "," + llongitude + ".json";
-    var localJson = $.getJSON("js/tokyo10day.json");
     $.ajax({
       url: weatherURL,
       jsonp: "callback",
@@ -126,23 +132,22 @@ $( document ).ready(function() {
         console.log(response);
         //  Weather Query for Today
         if (time == 0) {
-          var weatherCondition = response.current_observation.weather;
+          weatherCondition = response.current_observation.weather;
           location = response.current_observation.display_location.full;
           weatherUpdate = "Today, the weather in " + location + " is " + weatherCondition;
           console.log(weatherUpdate);
         }
         //  Weather Query for Tomorrow
         else if (time == 1) {
-          var weatherCondition = response.forecast.simpleforecast.forecastday[1].conditions;
-          var location = response.current_observation.display_location.full;
+          weatherCondition = response.forecast.simpleforecast.forecastday[1].conditions;
+          location = response.current_observation.display_location.full;
           weatherUpdate = "Tomorrow, in " + location + " the weather will be " + weatherCondition;
           console.log(weatherUpdate);
         }
         //  Weather Query for Weekend
         else if (time == 2) {
           var Saturday,
-              forecastDayW,
-              weatherCondition;
+              forecastDayW;
           var forecastLength = response.forecast.simpleforecast.forecastday.length;
 
           for(i=0; i < forecastLength; i++) {
@@ -152,7 +157,7 @@ $( document ).ready(function() {
               break;
             }
           }
-          var location = response.current_observation.display_location.full;
+          location = response.current_observation.display_location.full;
           weatherUpdate = "This weekend, in " + location + " the weather will be " + weatherCondition;
           console.log(weatherUpdate);
         };
@@ -178,8 +183,9 @@ $( document ).ready(function() {
     imgLoad();
   };
 
-  function whatIsW (weatherUpdate) {
-    switch (weatherUpdate) {
+  function whatIsW () {
+    console.log("Switch On " + weatherCondition);
+    switch (weatherCondition) {
       case "Chance of Flurries":
           gesture = "low";
           break;
@@ -272,7 +278,6 @@ $( document ).ready(function() {
     }
 
     return classes;
-
   };
 
 });

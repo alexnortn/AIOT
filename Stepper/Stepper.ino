@@ -47,12 +47,12 @@ void setup() {
      weatherCondition = Serial.read();
      Serial.print(weatherCondition + " Acknowledged");  //read values in serial monitor
      digitalWrite(ledPin, HIGH);
-     update();
+//     update();
  }
-//   myStepper.step(400);  
-//   delay(1000);
-//   myStepper.step(-400);  
-//   delay(1000);
+   myStepper.step(400);  
+   delay(1000);
+   myStepper.step(-400);  
+   delay(1000);
  }
  
  void update() {   
