@@ -149,7 +149,7 @@ p {
 	border: 0px solid #f2f2f2;
 }
 
-.autoBttn {
+.selectedBttn {
 	width: 150px;
 	height: 50px;
 	background-color: #2ecc71;
@@ -165,7 +165,7 @@ p {
 	-webkit-transition: all 0.25s ease;
 }
 
-.autoBttn:hover {
+.selectedBttn:hover {
 	background-color: #27ae60;
 	color: #f2f2f2;
 	border: 0px solid #f2f2f2;

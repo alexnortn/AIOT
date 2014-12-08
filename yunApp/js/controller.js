@@ -34,7 +34,7 @@ $( document ).ready(function() {
     if (autoUpdate) {
       console.log("Auto Update: LED State = " + state);
       updateFunc = setInterval( function () { checkWeather(time) }, timer);
-      $( this ).removeClass().addClass("autoBttn");
+      $( this ).removeClass().addClass("selectedBttn");
     } else {
       $( this ).removeClass().addClass("bttn");
       console.log("Manual Update: LED State = " + state);
