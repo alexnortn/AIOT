@@ -14,28 +14,17 @@
         <h2>4.S52's Arduino Web Controller </h2>
         <p>These buttons control an LED on the Arduino Yun. </p>
 
-        <p> 18.111.58.244 
-        <button id="led1_ON" onClick="YunDigitalController('18.111.109.199', 13, 1)" >LED ON</button>
-        <button id="led1_OFF" onClick="YunDigitalController('18.111.109.199', 13, 0)" > LED OFF </button>
+        <p> 192.168.1.128
+        <button id="led1_ON" onClick="YunDigitalController('192.168.1.128', 13, 1)" >LED ON</button>
+        <button id="led1_OFF" onClick="YunDigitalController('192.168.1.128', 13, 0)" > LED OFF </button>
         </p>
         </div>
-        <br>
-        
-    
-        <div class = "container">
-        <p> 18.111.126.86 
-        <button id="led2_ON"  onClick="YunDigitalController('18.111.126.86', 13, 1)" >LED ON</button>
-        <button id="led2_OFF"  onClick="YunDigitalController('18.111.126.86', 13, 0)" > LED OFF </button>
-        </p>
-     <span id ="results"> </span>
-       </div>
-  
         <br>
 
 
 		<script type="text/javascript">
 			var yunstate = 1;		
-			setInterval(function () {checkMyState("led1_ON", '18.111.109.199', 13)}, 1000);
+			setInterval(function () {checkMyState("led1_ON", '192.168.1.128', 13)}, 1000);
 
 			
 			function YunDigitalController(ip, pin, state) {
@@ -55,7 +44,7 @@
                           // url:"http://"+ip+"/arduino/digital/"+pin,
                           
                           // url:"http://18.111.126.86/arduino/digital/13",
-                           url:"http://18.111.126.86/data/get",
+                           url:"http://192.168.1.128/data/get",
                            dataType:"jsonp",
                            jsonp:"jsonp",
                            success:function(result){
