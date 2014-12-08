@@ -34,12 +34,10 @@ $( document ).ready(function() {
     if (autoUpdate) {
       console.log("Auto Update: LED State = " + state);
       updateFunc = setInterval( function () { checkWeather(time) }, timer);
-      $( this ).css( "background-color", "#2ecc71" )
-               .css( "color", "#fafafa" );
+      $( this ).removeClass().addClass("autoBttn");
     } else {
-      $( this ).css( "background-color", "#fafafa" )
-               .css( "color", "black" );
-      console.log("Manual Update: LED State = " + state;
+      $( this ).removeClass().addClass("bttn");
+      console.log("Manual Update: LED State = " + state);
       clearInterval(updateFunc);
     }
   });
