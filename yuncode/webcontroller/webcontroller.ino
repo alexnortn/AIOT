@@ -8,6 +8,7 @@ YunServer server(PORT);
 int ledPin = 13;
 int val = 0;
 String ledValue = String(ledPin);
+
 void setup() {
   Serial.begin(115200);
   Bridge.begin();
@@ -15,13 +16,11 @@ void setup() {
   server.begin();
   
   pinMode(ledPin, LOW);
-  digitalWrite(ledPin, LOW);
-  
+  digitalWrite(ledPin, LOW);  
 }
 
 
 void loop() {
-  //Bridge.put(String("temp"), String("val"));
   val = digitalRead(ledPin);
   Bridge.put(String("ledPin"), String(val));
   YunClient client = server.accept();

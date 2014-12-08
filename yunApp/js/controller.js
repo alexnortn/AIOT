@@ -10,6 +10,7 @@ $( document ).ready(function() {
   var time = 0;
   var location = "Boston, Ma";
   var autoUpdate = false;
+  var state = false;
   var updateFunc;
 
   $('#today_id').click(function(){
@@ -29,15 +30,16 @@ $( document ).ready(function() {
 
   $('#autoUpdate').click(function(){
     autoUpdate = !autoUpdate;
+    state = !state;
     if (autoUpdate) {
-      console.log("Auto Update");
+      console.log("Auto Update: LED State = " + state);
       updateFunc = setInterval( function () { checkWeather(time) }, timer);
-      $( this ).css( "background-color", "green" )
+      $( this ).css( "background-color", "#2ecc71" )
                .css( "color", "#fafafa" );
     } else {
       $( this ).css( "background-color", "#fafafa" )
                .css( "color", "black" );
-      console.log("Manual Update");
+      console.log("Manual Update: LED State = " + state;
       clearInterval(updateFunc);
     }
   });
@@ -56,12 +58,21 @@ $( document ).ready(function() {
   timer = updateInterval(5);
 
   function checkWeather(time) {
-    console.log("Auto Update Weather");
+    var ip0 = "192.168.1.128";
+    var pin;
+    console.log("Update Weather");
+    if (state) {
+      pin = 1;
+      console.log("LED ON");
+    } else {
+      pin = 0;
+      console.log("LED OFF");
+    }
     query();
     $( "#lampArm" ).removeClass().addClass("lampArm" + classes[0]);
     $( "#lampShade" ).removeClass().addClass("lampShade" + classes[1]);
     $.ajax({
-      url: "http://" + ip0 + "/arduino/digital/13/1",
+      url: "http://" + ip0 + "/arduino/digital/13/" + pin,
       jsonp: "callback",
       dataType: "jsonp",
       data:{},
