@@ -53,10 +53,10 @@ $( document ).ready(function() {
     return interval;
   }
 
-  timer = updateInterval(5);
+  timer = updateInterval(0.5);
 
   function checkWeather(time) {
-    var ip0 = "192.168.1.128";
+    var ip0 = "18.111.22.21";
     var pin;
     console.log("Update Weather");
     if (state) {
@@ -71,6 +71,15 @@ $( document ).ready(function() {
     $( "#lampShade" ).removeClass().addClass("lampShade" + classes[1]);
     $.ajax({
       url: "http://" + ip0 + "/arduino/digital/13/" + pin,
+      jsonp: "callback",
+      dataType: "jsonp",
+      data:{},
+      success: function(response){
+         console.log(response);
+      }
+    });
+    $.ajax({
+      url: "http://" + ip0 + "/mailbox/" + classes[2],
       jsonp: "callback",
       dataType: "jsonp",
       data:{},
@@ -122,11 +131,13 @@ $( document ).ready(function() {
       }
   }
 
-  // Create instance of this Class, use the 'get' method to call function
-
+  // Update weather with respect to period {call}
   $('#weather').click(function(){
     checkWeather(time);
   });
+
+
+  // Load weather conditions for selected time period
 
   function loadWeather(time) {
     var baseWeatherURL = "http://api.wunderground.com/api/9867e8006f7cddb7/forecast10day/conditions/q/"
@@ -177,6 +188,7 @@ $( document ).ready(function() {
     });
   };
 
+  // check asset load
   function imgLoad() {
     var x = document.getElementById("lampShade").complete;
     var y = document.getElementById("lampArm").complete;
@@ -192,6 +204,7 @@ $( document ).ready(function() {
     imgLoad();
   };
 
+  // Switch cases for setting the lamp movement mapping
   function whatIsW () {
     console.log("Switch On " + weatherCondition);
     switch (weatherCondition) {
@@ -279,11 +292,11 @@ $( document ).ready(function() {
     }
 
     if (gesture == "low") {
-      classes = [" lampArmDn", " lampShadeDn"]
+      classes = [" lampArmDn", " lampShadeDn", "R"]
     } else if (gesture == "medium") {
-      classes = [" lampArmMd", " lampShadeMd"]
+      classes = [" lampArmMd", " lampShadeMd", "O"]
     } else {
-      classes = [" lampArmUp", " lampShadeUp"]
+      classes = [" lampArmUp", " lampShadeUp", "C"]
     }
 
     return classes;
