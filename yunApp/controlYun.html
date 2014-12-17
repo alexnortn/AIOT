@@ -29,12 +29,23 @@
       <div class='containerDiv'>
         <p>Create PWS at your Location</p>
         <button id="geoLocate" class="bttn">GeoLocate</button>
+        <button id="customSeachBttn" class="bttn">Custom Search</button>
         <button id="autoUpdate" class="bttn">Auto Update</button>
+        <div id="customSearch">
+          <form name="locInput">
+            <p>City Lookup</p>
+            <input type="text" value="Atlanta" name="wLoc">
+            <p>State Lookup</p>
+            <input type="text" value="Georgia" name="wwLoc">
+          </form>
+          <button id="cityGo" class="bttn">cityGo</button>
+        </div>
         <p id="geoResults"></p>
       </div>
       <div class='containerDiv'>
         <p>Update Weather</p>
         <button id="weather" class="bttn">GetWeather</button>
+        <button id="snow" class="bttn">Snow Day</button>
         <p id="weatherResults"></p>
       </div>
     </div>

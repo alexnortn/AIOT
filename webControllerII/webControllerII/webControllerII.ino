@@ -17,7 +17,7 @@ const int pwmA = 3,
          brakeB = 8,
          dirA = 12,
          dirB = 13,
-         ledPinSvn = 7;
+         ledPinSvn = 4;
          
 char weatherCondition = 'O';
 
@@ -25,12 +25,13 @@ int stepNum = 0,
    clearStep = 600,
    overcastStep = 300,
    rainStep = 0,
-   counter = 0;                                       
+   counter = 0, 
+   counter2 = 0;                                      
  
 #define PORT 5555
 YunServer server(PORT);
  
-int ledPin = 13;
+int ledPin = 5;
 int val = 0;
 String ledValue = String(ledPin);
 String message;
@@ -48,10 +49,10 @@ void setup() {
 
   // Initialize Serial
   Serial.begin(115200);
-  Serial1.begin(linuxBaud);  // open serial connection to Linux
+  // Serial1.begin(linuxBaud);  // open serial connection to Linux
   
   // Wait until a Serial Monitor is connected.
-  while (!Serial);
+//  while (!Serial);
 
   Serial.println("Mailbox Read Message\n");
   Serial.println("The Mailbox is checked every 10 seconds. The incoming messages will be shown below.\n");
@@ -69,22 +70,22 @@ void setup() {
   pinMode(ledPinSvn, OUTPUT);
 
   // set the motor speed (for multiple steps only):
-  myStepper.setSpeed(10);
+  myStepper.setSpeed(5);
+  rest();
 }
-
-  boolean commandMode = false;
 
 void loop() {
   val = digitalRead(ledPin);
+  digitalWrite(ledPinSvn, HIGH);
   Bridge.put(String("ledPin"), String(val));
   YunClient client = server.accept();
 
-  if (client) {
-    process(client);
-    client.stop();
-  }
+  // if (client) {
+  //   process(client);
+  //   client.stop();
+  // }
   
-  linux();
+  // linux();
 
   // Call Mail function
   storeMail();
@@ -94,110 +95,15 @@ void loop() {
   // Touch the Lamp
   digitalWrite(ledPin, HIGH);
   
-  if (Serial.available()) {
-//    update();
+  if (counter > counter2) {
+    activate();
+    update();
+    rest();
+    Serial.println("Update called!   " + ledPinSvn);
+    counter2 ++;
+
   }
   
-}
-
-void process(YunClient client) {
-  String command = client.readStringUntil('/');
-
-  if (command == "digital") {
-    digitalCommand(client);
-  }
-  if (command == "analog") {
-    analogCommand(client);
-  }
-  if (command == "mode") {
-    modeCommand(client);
-  }
-}
-
-void digitalCommand(YunClient client) {
-  int pin, value;
-  pin = client.parseInt();
-
-  if (client.read() == '/') {
-    value = client.parseInt();
-    digitalWrite(pin, value);
-  } 
-  else {
-    value = digitalRead(pin);
-    client.print(F("Pin D"));
-  client.print(pin);
-  client.print(F(" set to "));
-  client.println(value);
-
-  String key = "D";
-  key += pin;
-  Bridge.put(key, String(value));
-}
-  }
-  
-  void analogCommand(YunClient client) {
-  int pin, value;
-
-  pin = client.parseInt();
-
-  if (client.read() == '/') {
-    value = client.parseInt();
-    analogWrite(pin, value);
-
-    // Send feedback to client
-    client.print(F("Pin D"));
-    client.print(pin);
-    client.print(F(" set to analog "));
-    client.println(value);
-
-    String key = "D";
-    key += pin;
-    Bridge.put(key, String(value));
-  }
-  else {
-    value = analogRead(pin);
-
-    client.print(F("Pin A"));
-    client.print(pin);
-    client.print(F(" reads analog "));
-    client.println(value);
-
-    String key = "A";
-    key += pin;
-    Bridge.put(key, String(value));
-  }
-}
-
-void modeCommand(YunClient client) {
-  int pin;
-  pin = client.parseInt();
-  if (client.read() != '/') {
-    client.println(F("error"));
-    return;
-  }
-  
-  String mode = client.readStringUntil('\r');
-
-  if (mode == "input") {
-    pinMode(pin, INPUT);
-    // Send feedback to client
-    client.print(F("Pin D"));
-    client.print(pin);
-    client.print(F(" configured as INPUT!"));
-    return;
-  }
-
-  if (mode == "output") {
-    pinMode(pin, OUTPUT);
-    // Send feedback to client
-    client.print(F("Pin D"));
-    client.print(pin);
-    client.print(F(" configured as OUTPUT!"));
-    return;
-  }
-
-  client.print(F("error: invalid mode "));
-  client.print(mode);
 }
 
 void storeMail() {
@@ -209,6 +115,7 @@ void storeMail() {
     {
       Mailbox.readMessage(message);
       Serial.println(message);
+      counter++;
     }
 
     Serial.println("Waiting 10 seconds before checking the Mailbox again");
@@ -217,90 +124,53 @@ void storeMail() {
   // Parse the Mail-Message
   if (message.length() == 1) {
     weatherCondition = message.charAt(0);
-  }
-
-  // wait 10 seconds
-//  delay(5000);
-   
+  }   
 }
 
 void update() {   
    if (weatherCondition == 'R') {
      stepNum*= -1;
-     myStepper.step(stepNum);
-     rest();  
+     myStepper.step(stepNum); 
    } else if (weatherCondition == 'O') {
        if (stepNum == rainStep) {
          stepNum += overcastStep;
          myStepper.step(stepNum);  
-         rest();
        } else if (stepNum == clearStep) {
          stepNum = -1 * (stepNum - overcastStep);
          myStepper.step(stepNum);  
-         rest();
        } else { myStepper.step(0); };       
    } else if (weatherCondition == 'C') {
        if (stepNum == rainStep) {
          stepNum += clearStep;
          myStepper.step(stepNum);  
-         rest();
        } else if (stepNum == overcastStep) {
          stepNum += (clearStep - overcastStep);
          myStepper.step(stepNum);  
        } else if (stepNum == clearStep) {
          myStepper.step(0);  
-         rest();
        };    
+   } else if (weatherCondition == 'S') {
+       for(int i = 0; i < 5; i++) {
+         myStepper.setSpeed(75);
+         myStepper.step(25);
+         myStepper.step(-25);
+        myStepper.step(25);
+         myStepper.step(-25); 
+        myStepper.step(25);
+         myStepper.step(-25); 
+        delay(5000); 
+       }
    }
  }
  
  void rest() {
-   int wait = 1000;
    digitalWrite(pwmA, LOW);
-   digitalWrite(pwmB, LOW);
-   delay(wait);
-   digitalWrite(pwmA, HIGH);
-   digitalWrite(pwmB, HIGH);   
+   digitalWrite(pwmB, LOW); 
+   pinMode(ledPinSvn, OUTPUT);
  }
  
- void linux() {
-  // copy from USB-CDC to UART
-  int c = Serial.read();              // read from USB-CDC
-  if (c != -1) {                      // got anything?
-    if (commandMode == false) {       // if we aren't in command mode...
-      if (c == '~') {                 //    Tilde '~' key pressed?
-        commandMode = true;           //       enter in command mode
-      } else {
-        Serial1.write(c);             //    otherwise write char to UART
-      }
-    } else {                          // if we are in command mode...
-      if (c == '0') {                 //     '0' key pressed?
-        Serial1.begin(57600);         //        set speed to 57600
-        Serial.println("Speed set to 57600");
-      } else if (c == '1') {          //     '1' key pressed?
-        Serial1.begin(115200);        //        set speed to 115200
-        Serial.println("Speed set to 115200");
-      } else if (c == '2') {          //     '2' key pressed?
-        Serial1.begin(250000);        //        set speed to 250000
-        Serial.println("Speed set to 250000");
-      } else if (c == '3') {          //     '3' key pressed?
-        Serial1.begin(500000);        //        set speed to 500000
-        Serial.println("Speed set to 500000");
-      } else if (c == '~') {          //     '~` key pressed?
-                                      //        send "bridge shutdown" command
-        Serial1.write((uint8_t *)"\xff\0\0\x05XXXXX\x7f\xf9", 11);
-        Serial.println("Sending bridge's shutdown command");
-      } else {                        //     any other key pressed?
-        Serial1.write('~');           //        write '~' to UART
-        Serial1.write(c);             //        write char to UART
-      }
-      commandMode = false;            //     in all cases exit from command mode
-    }
-  }
-
-  // copy from UART to USB-CDC
-  c = Serial1.read();                 // read from UART
-  if (c != -1) {                      // got anything?
-    Serial.write(c);                  //    write to USB-CDC
-  } 
+ void activate() {
+   digitalWrite(pwmA, HIGH);
+   digitalWrite(pwmB, HIGH);
+   myStepper.setSpeed(5); 
  }
