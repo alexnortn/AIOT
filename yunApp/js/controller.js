@@ -1,3 +1,7 @@
+//  You need to build a new function to incorporate a dynamic URL --> for the new variable location
+
+
+
 $( document ).ready(function() {
 
   var llatitude = 42.3463503;
@@ -70,7 +74,7 @@ $( document ).ready(function() {
   });
 
   $('#snow').click(function(){
-    var ip0 = "192.168.1.128";
+    var ip0 = "18.111.123.190";
     var pin;
     snowDay = !snowDay;
     state = !state;
@@ -111,7 +115,7 @@ $( document ).ready(function() {
   timer = updateInterval(0.5);
 
   function checkWeather(time) {
-    var ip0 = "192.168.1.128";
+    var ip0 = "18.111.123.190";
     var pin;
     console.log("Update Weather");
     if (state) {
@@ -145,7 +149,7 @@ $( document ).ready(function() {
   };
 
     function checkWeatherLoc(time) {
-    var ip0 = "192.168.1.128";
+    var ip0 = "18.111.123.190";
     var pin;
     console.log("Update Weather");
     if (state) {
