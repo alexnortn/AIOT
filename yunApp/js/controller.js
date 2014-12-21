@@ -74,7 +74,7 @@ $( document ).ready(function() {
   });
 
   $('#snow').click(function(){
-    var ip0 = "18.111.123.190";
+    var ip0 = "172.25.3.206";
     var pin;
     snowDay = !snowDay;
     state = !state;
@@ -115,7 +115,7 @@ $( document ).ready(function() {
   timer = updateInterval(0.5);
 
   function checkWeather(time) {
-    var ip0 = "18.111.123.190";
+    var ip0 = "172.25.3.206";
     var pin;
     console.log("Update Weather");
     if (state) {
@@ -149,7 +149,7 @@ $( document ).ready(function() {
   };
 
     function checkWeatherLoc(time) {
-    var ip0 = "18.111.123.190";
+    var ip0 = "172.25.3.206";
     var pin;
     console.log("Update Weather");
     if (state) {
